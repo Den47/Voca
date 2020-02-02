@@ -33,7 +33,7 @@ namespace Voca
 			await SaveAsync();
 		}
 
-		public async Task<IReadOnlyDictionary<string, string>> LoadAsync()
+		public async Task<IDictionary<string, string>> LoadAsync()
 		{
 			var path = FilePath;
 

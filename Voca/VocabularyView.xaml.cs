@@ -11,15 +11,13 @@ namespace Voca
 	/// </summary>
 	public partial class VocabularyView : Page
 	{
-		private const string DefaultPath = "VocaData.txt";
-
 		private readonly Loader _loader;
 
 		public VocabularyView()
 		{
 			InitializeComponent();
 
-			_loader = new Loader(DefaultPath);
+			_loader = new Loader(App.DefaultDataPath);
 
 			Loaded += VocabularyView_Loaded;
 		}

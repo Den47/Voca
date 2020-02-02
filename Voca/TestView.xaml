@@ -7,10 +7,38 @@
       mc:Ignorable="d" 
       d:DesignHeight="450"
       d:DesignWidth="800"
-      Title="Test">
+      Title="Test"
+      WindowTitle="Test">
     <Grid>
         <StackPanel HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Width="250" />
+                    MinWidth="250">
+            <ToggleButton x:Name="SourceButton"
+                          Margin="10,5"
+                          Padding="5,0,0,2"
+                          BorderThickness="0"
+                          Background="Transparent"
+                          FontSize="18"
+                          Checked="SourceButton_Checked"
+                          Unchecked="SourceButton_Unchecked"
+                          HorizontalAlignment="Stretch"
+                          HorizontalContentAlignment="Stretch"
+                          VerticalAlignment="Center" />
+            <TextBox x:Name="TranslateInput"
+                     Margin="10,5"
+                     Width="250"
+                     FontSize="14"
+                     Padding="5"
+                     Background="White"
+                     HorizontalAlignment="Left"
+                     KeyUp="TranslateInput_KeyUp" />
+            <Button x:Name="NextButton"
+                    Click="NextButton_Click"
+                    Content="Next"
+                    Margin="10,5"
+                    HorizontalAlignment="Left"
+                    Width="250"
+                    Padding="5" />
+        </StackPanel>
     </Grid>
 </Page>

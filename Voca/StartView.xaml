@@ -7,7 +7,8 @@
       mc:Ignorable="d"
       d:DesignHeight="450"
       d:DesignWidth="800"
-      Title="Voca">
+      Title="Voca"
+      WindowTitle="Voca">
     <Grid>
         <StackPanel HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -16,7 +17,8 @@
                     Click="TestButton_Click"
                     Content="Test"
                     Margin="10,5"
-                    Padding="5" />
+                    Padding="5"
+                    IsEnabled="False" />
             <Button x:Name="VocabularyButton"
                     Click="VocabularyButton_Click"
                     Content="Vocabulary"

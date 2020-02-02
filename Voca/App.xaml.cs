@@ -7,5 +7,6 @@ namespace Voca
 	/// </summary>
 	public partial class App : Application
 	{
+		public const string DefaultDataPath = "VocaData.txt";
 	}
 }
