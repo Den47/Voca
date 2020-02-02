@@ -35,7 +35,10 @@ namespace Voca
 		public string Next()
 		{
 			if (_keys.Count == 1)
-				return _keys.First();
+			{
+				CurrentKey = _keys.First();
+				return CurrentKey;
+			}
 
 			int index;
 			do { index = _random.Next(0, _keys.Count); }
