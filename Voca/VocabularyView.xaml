@@ -1,19 +1,24 @@
 ﻿<Page x:Class="Voca.VocabularyView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Voca"
-      mc:Ignorable="d" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Title="Vocabulary"
       d:DesignHeight="450"
       d:DesignWidth="800"
-      Title="Vocabulary"
-      WindowTitle="Vocabulary">
+      WindowTitle="Vocabulary"
+      mc:Ignorable="d">
     <Grid>
-        <StackPanel HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Width="250"
-                    Margin="10">
+        <TextBlock x:Name="Count"
+                   Margin="10"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top" />
+
+        <StackPanel Width="250"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
             <TextBlock Text="Question" />
             <TextBox x:Name="SourceInput"
                      Margin="0,5"
@@ -25,20 +30,16 @@
                      Padding="5"
                      KeyUp="TranslateInput_KeyUp" />
             <Button x:Name="SubmitButton"
-                    Click="SubmitButton_Click"
-                    Content="Submit"
-                    Margin="0,5"
-                    Padding="5" />
-            <Button x:Name="FileButton"
-                    Click="FileButton_Click"
-                    Content="Open File"
                     Margin="0,5"
                     Padding="5"
+                    Click="SubmitButton_Click"
+                    Content="Submit" />
+            <Button x:Name="FileButton"
+                    Margin="0,5"
+                    Padding="5"
+                    Click="FileButton_Click"
+                    Content="Open File"
                     Visibility="Collapsed" />
         </StackPanel>
-
-        <TextBlock x:Name="Count"
-                   HorizontalAlignment="Right"
-                   VerticalAlignment="Bottom" />
     </Grid>
 </Page>

@@ -1,29 +1,34 @@
 ﻿<Page x:Class="Voca.StartView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Voca"
-      mc:Ignorable="d"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Title="Voca"
       d:DesignHeight="450"
       d:DesignWidth="800"
-      Title="Voca"
-      WindowTitle="Voca">
+      WindowTitle="Voca"
+      mc:Ignorable="d">
     <Grid>
-        <StackPanel HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Width="250">
+        <StackPanel Width="250"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
             <Button x:Name="TestButton"
-                    Click="TestButton_Click"
-                    Content="Test"
                     Margin="10,5"
                     Padding="5"
+                    Click="TestButton_Click"
+                    Content="Test"
                     IsEnabled="False" />
-            <Button x:Name="VocabularyButton"
-                    Click="VocabularyButton_Click"
-                    Content="Vocabulary"
+            <Button x:Name="AddButton"
                     Margin="10,5"
-                    Padding="5" />
+                    Padding="5"
+                    Click="AddButton_Click"
+                    Content="Add Words" />
+            <Button x:Name="VocabularyButton"
+                    Margin="10,5"
+                    Padding="5"
+                    Click="VocabularyButton_Click"
+                    Content="Vocabulary" />
         </StackPanel>
     </Grid>
 </Page>

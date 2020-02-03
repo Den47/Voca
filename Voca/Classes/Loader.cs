@@ -23,12 +23,15 @@ namespace Voca
 
 		public string FilePath => $"{Environment.CurrentDirectory}\\{_filePath}";
 
-		public async Task AddAsync(string key, string value)
+		public async Task AddAsync(IEnumerable<Item> items)
 		{
 			if (_vocabulary == null)
 				await LoadAsync();
 
-			_vocabulary[key] = value;
+			foreach (var item in items)
+			{
+				_vocabulary[item.Key] = item.Value;
+			}
 
 			await SaveAsync();
 		}
@@ -55,13 +58,23 @@ namespace Voca
 			return result;
 		}
 
-		public async Task RemoveAsync(string key)
+		public async Task RemoveAsync(IEnumerable<string> keys)
 		{
 			if (_vocabulary == null)
 				await LoadAsync();
 
-			if (_vocabulary.ContainsKey(key))
-				_vocabulary.Remove(key);
+			foreach (var key in keys)
+			{
+				if (_vocabulary.ContainsKey(key))
+					_vocabulary.Remove(key);
+			}
+
+			await SaveAsync();
+		}
+
+		public async Task UpdateAsync(IEnumerable<Item> items)
+		{
+			_vocabulary = items?.ToDictionary(x => x.Key, x => x.Value) ?? new Dictionary<string, string>();
 
 			await SaveAsync();
 		}

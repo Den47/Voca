@@ -31,9 +31,14 @@ namespace Voca
 			NavigationService.GetNavigationService(this).Navigate(new Uri("TestView.xaml", UriKind.RelativeOrAbsolute));
 		}
 
-		private void VocabularyButton_Click(object sender, RoutedEventArgs e)
+		private void AddButton_Click(object sender, RoutedEventArgs e)
 		{
 			NavigationService.GetNavigationService(this).Navigate(new Uri("VocabularyView.xaml", UriKind.RelativeOrAbsolute));
+		}
+
+		private void VocabularyButton_Click(object sender, RoutedEventArgs e)
+		{
+			NavigationService.GetNavigationService(this).Navigate(new Uri("VocabularyGridView.xaml", UriKind.RelativeOrAbsolute));
 		}
 	}
 }

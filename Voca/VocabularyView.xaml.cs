@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -38,7 +39,8 @@ namespace Voca
 			if (string.IsNullOrEmpty(TranslateInput.Text))
 				return;
 
-			await _loader.AddAsync(SourceInput.Text.Trim().ToLowerInvariant(), TranslateInput.Text.Trim().ToLowerInvariant());
+			var item = new Item(SourceInput.Text.Trim().ToLowerInvariant(), TranslateInput.Text.Trim().ToLowerInvariant());
+			await _loader.AddAsync(new List<Item> { item });
 
 			SourceInput.Text = string.Empty;
 			TranslateInput.Text = string.Empty;
