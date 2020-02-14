@@ -7,46 +7,60 @@ namespace Voca
 	public class Tester
 	{
 		private readonly Random _random;
-		private readonly IDictionary<string, string> _vocabulary;
-		private readonly List<string> _keys;
+		private readonly List<Item> _vocabulary;
 
-		private int _currentIndex = -1;
+		private string _current;
 
-		public Tester(IDictionary<string, string> vocabulary)
+		public Tester(List<Item> vocabulary)
 		{
 			_random = new Random();
 
 			if (vocabulary == null || vocabulary.Count == 0)
 				throw new ArgumentNullException();
 
-			_vocabulary = new Dictionary<string, string>(vocabulary);
-			_keys = _vocabulary.Keys.ToList();
+			_vocabulary = new List<Item>(vocabulary);
 		}
 
-		public string CurrentKey { get; private set; }
+		public bool Direction { get; set; } = true;
 
-		public string CurrentTranslate => _vocabulary[CurrentKey].ToLowerInvariant();
+		private Item CurrentItem { get; set; }
 
 		public bool Check(string translate)
 		{
-			return _vocabulary[CurrentKey].ToLowerInvariant() == translate.ToLowerInvariant();
+			return GetTranslate()?.ToLowerInvariant() == translate.ToLowerInvariant();
 		}
 
 		public string Next()
 		{
-			if (_keys.Count == 1)
+			if (_vocabulary.Count == 1)
 			{
-				CurrentKey = _keys.First();
-				return CurrentKey;
+				CurrentItem = _vocabulary.First();
+				return GetCurrent();
 			}
 
-			int index;
-			do { index = _random.Next(0, _keys.Count); }
-			while (_currentIndex == index);
+			Item current;
+			do { current = _vocabulary[_random.Next(0, _vocabulary.Count)]; }
+			while (_current == current.Item1);
 
-			_currentIndex = index;
-			CurrentKey = _keys[index];
-			return CurrentKey;
+			_current = current.Item1;
+			CurrentItem = current;
+			return GetCurrent();
+		}
+
+		public string GetCurrent()
+		{
+			if (CurrentItem == null)
+				return null;
+
+			return Direction ? CurrentItem.Item1 : CurrentItem.Item2;
+		}
+
+		public string GetTranslate()
+		{
+			if (CurrentItem == null)
+				return null;
+
+			return Direction ? CurrentItem.Item2 : CurrentItem.Item1;
 		}
 	}
 }

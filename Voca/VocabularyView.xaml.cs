@@ -29,7 +29,7 @@ namespace Voca
 
 			var data = await _loader.LoadAsync();
 
-			Count.Text = $"{data.Count} item(s).";
+			Count.Text = $"{data.Count} item(s)";
 		}
 
 		private async void SubmitButton_Click(object sender, RoutedEventArgs e)
@@ -44,7 +44,7 @@ namespace Voca
 
 			SourceInput.Text = string.Empty;
 			TranslateInput.Text = string.Empty;
-			Count.Text = $"{_loader.Count} item(s).";
+			Count.Text = $"{_loader.Count} item(s)";
 
 			SourceInput.Focus();
 		}

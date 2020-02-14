@@ -39,6 +39,13 @@
                     HorizontalAlignment="Left"
                     Click="NextButton_Click"
                     Content="Next" />
+            <Button x:Name="SwapButton"
+                    Width="250"
+                    Margin="10,5"
+                    Padding="5"
+                    HorizontalAlignment="Left"
+                    Click="SwapButton_Click"
+                    Content="Swap" />
         </StackPanel>
     </Grid>
 </Page>

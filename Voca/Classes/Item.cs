@@ -6,14 +6,14 @@
 		{
 		}
 
-		public Item(string key, string value)
+		public Item(string item1, string item2)
 		{
-			Key = key;
-			Value = value;
+			Item1 = item1;
+			Item2 = item2;
 		}
 
-		public string Key { get; set; }
+		public string Item1 { get; set; }
 
-		public string Value { get; set; }
+		public string Item2 { get; set; }
 	}
 }

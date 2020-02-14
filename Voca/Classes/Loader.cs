@@ -11,11 +11,11 @@ namespace Voca
 	{
 		private readonly string _filePath;
 
-		private Dictionary<string, string> _vocabulary;
+		private List<Item> _vocabulary;
 
 		public Loader(string relativeFilePath)
 		{
-			_vocabulary = new Dictionary<string, string>();
+			_vocabulary = new List<Item>();
 			_filePath = relativeFilePath;
 		}
 
@@ -28,45 +28,37 @@ namespace Voca
 			if (_vocabulary == null)
 				await LoadAsync();
 
-			foreach (var item in items)
-			{
-				_vocabulary[item.Key] = item.Value;
-			}
+			_vocabulary.AddRange(items);
 
 			await SaveAsync();
 		}
 
-		public async Task<IDictionary<string, string>> LoadAsync()
+		public async Task<List<Item>> LoadAsync()
 		{
 			var path = FilePath;
 
 			if (!File.Exists(path))
 			{
 				await File.WriteAllTextAsync(path, string.Empty, Encoding.UTF8);
-				_vocabulary = new Dictionary<string, string>();
-				return new Dictionary<string, string>();
+				_vocabulary = new List<Item>();
+				return new List<Item>();
 			}
 
 			var lines = await File.ReadAllLinesAsync(path);
 
-			var result = lines.Select(x => ParseSafe(x))
-							  .Where(x => !string.IsNullOrEmpty(x.Key))
-							  .ToDictionary(x => x.Key, y => y.Value);
+			_vocabulary = lines.Select(x => ParseSafe(x)).Where(x => !string.IsNullOrEmpty(x.Item1 + x.Item2)).ToList();
 
-			_vocabulary = new Dictionary<string, string>(result);
-
-			return result;
+			return new List<Item>(_vocabulary);
 		}
 
-		public async Task RemoveAsync(IEnumerable<string> keys)
+		public async Task RemoveAsync(IEnumerable<Item> items)
 		{
 			if (_vocabulary == null)
 				await LoadAsync();
 
-			foreach (var key in keys)
+			foreach (var item in items)
 			{
-				if (_vocabulary.ContainsKey(key))
-					_vocabulary.Remove(key);
+				_vocabulary.Remove(item);
 			}
 
 			await SaveAsync();
@@ -74,27 +66,30 @@ namespace Voca
 
 		public async Task UpdateAsync(IEnumerable<Item> items)
 		{
-			_vocabulary = items?.ToDictionary(x => x.Key, x => x.Value) ?? new Dictionary<string, string>();
+			if (items == null)
+				_vocabulary = new List<Item>();
+			else
+				_vocabulary = new List<Item>(items);
 
 			await SaveAsync();
 		}
 
-		private KeyValuePair<string, string> ParseSafe(string line)
+		private Item ParseSafe(string line)
 		{
 			try
 			{
-				var split = line.Split(':', ' ', '=');
-				return KeyValuePair.Create(split[0], split[1]);
+				var split = line.Split(':', ' ', '=', ',');
+				return new Item(split[0], split[1]);
 			}
 			catch
 			{
-				return KeyValuePair.Create(string.Empty, string.Empty);
+				return new Item(string.Empty, string.Empty);
 			}
 		}
 
 		private async Task SaveAsync()
 		{
-			var data = _vocabulary.Select(x => $"{x.Key}:{x.Value}");
+			var data = _vocabulary.Select(x => $"{x.Item1},{x.Item2}");
 
 			await File.WriteAllLinesAsync(FilePath, data, Encoding.UTF8);
 		}

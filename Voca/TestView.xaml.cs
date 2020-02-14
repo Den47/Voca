@@ -70,12 +70,18 @@ namespace Voca
 
 		private void SourceButton_Checked(object sender, RoutedEventArgs e)
 		{
-			SourceButton.Content = $"{_tester.CurrentKey}/{_tester.CurrentTranslate}";
+			SourceButton.Content = $"{_tester.GetCurrent()}/{_tester.GetTranslate()}";
 		}
 
 		private void SourceButton_Unchecked(object sender, RoutedEventArgs e)
 		{
-			SourceButton.Content = $"{_tester.CurrentKey}";
+			SourceButton.Content = $"{_tester.GetCurrent()}";
+		}
+
+		private void SwapButton_Click(object sender, RoutedEventArgs e)
+		{
+			_tester.Direction = !_tester.Direction;
+			Next();
 		}
 	}
 }
