@@ -10,6 +10,11 @@
       WindowTitle="Test"
       mc:Ignorable="d">
     <Grid>
+        <TextBlock x:Name="Count"
+                   Margin="10"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top" />
+
         <StackPanel MinWidth="250"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
@@ -46,6 +51,12 @@
                     HorizontalAlignment="Left"
                     Click="SwapButton_Click"
                     Content="Swap" />
+            <Button x:Name="ModeButton"
+                    Width="250"
+                    Margin="10,5"
+                    Padding="5"
+                    HorizontalAlignment="Left"
+                    Click="ModeButton_Click" />
         </StackPanel>
     </Grid>
 </Page>

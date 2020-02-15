@@ -26,6 +26,7 @@ namespace Voca
 			var loader = new Loader(App.DefaultDataPath);
 			var data = await loader.LoadAsync();
 			_tester = new Tester(data);
+			UpdateModeText();
 
 			Next();
 		}
@@ -59,10 +60,21 @@ namespace Voca
 
 		private void Next()
 		{
+			var left = _tester.Left;
+			var next = _tester.Next();
+
+			if (_tester.FullTest && left == 1)
+			{
+				UpdateStatus(0);
+				MessageBox.Show("Test Completed!");
+			}
+
 			TranslateInput.Background = new SolidColorBrush(Colors.White);
 
-			SourceButton.Content = _tester.Next();
+			SourceButton.Content = next;
 			SourceButton.IsChecked = false;
+
+			UpdateStatus(_tester.Left);
 
 			TranslateInput.Text = string.Empty;
 			TranslateInput.Focus();
@@ -82,6 +94,24 @@ namespace Voca
 		{
 			_tester.Direction = !_tester.Direction;
 			Next();
+		}
+
+		private void ModeButton_Click(object sender, RoutedEventArgs e)
+		{
+			_tester.FullTest = !_tester.FullTest;
+			UpdateModeText();
+			UpdateStatus(_tester.Left);
+			TranslateInput.Focus();
+		}
+
+		private void UpdateModeText()
+		{
+			ModeButton.Content = _tester.FullTest ? "Start Random Test" : "Start Full Test";
+		}
+
+		private void UpdateStatus(int count)
+		{
+			Count.Text = $"{count} item(s)";
 		}
 	}
 }
