@@ -1,0 +1,39 @@
+﻿<Page x:Class="Voca.VocabularyView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Voca"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      Title="Vocabulary"
+      d:DesignHeight="450"
+      d:DesignWidth="800"
+      WindowTitle="Vocabulary"
+      mc:Ignorable="d">
+    <Grid>
+        <TextBlock x:Name="Count"
+                   Margin="10"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top" />
+
+        <StackPanel Width="250"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <TextBlock Text="Question" />
+            <TextBox x:Name="SourceInput"
+                     Margin="0,5"
+                     Padding="5"
+                     KeyUp="SourceInput_KeyUp" />
+            <TextBlock Text="Answer" />
+            <TextBox x:Name="TranslateInput"
+                     Margin="0,5"
+                     Padding="5"
+                     KeyUp="TranslateInput_KeyUp" />
+            <Button x:Name="SubmitButton"
+                    Margin="0,5"
+                    Padding="5"
+                    Click="SubmitButton_Click"
+                    Content="Submit" />
+        </StackPanel>
+    </Grid>
+</Page>
