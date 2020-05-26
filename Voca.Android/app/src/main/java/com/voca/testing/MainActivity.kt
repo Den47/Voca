@@ -5,14 +5,19 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView.OnEditorActionListener
 import androidx.appcompat.app.AppCompatActivity
 import com.voca.testing.classes.Item
 import com.voca.testing.classes.Tester
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import java.io.IOException
+import java.io.InputStream
 
 
 class MainActivity : AppCompatActivity() {
@@ -50,6 +55,14 @@ class MainActivity : AppCompatActivity() {
                     inputText.setTextColor(defaultTextColor)
                 }
             }
+        })
+
+        inputText.setOnEditorActionListener(OnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                nextButton.performClick()
+                return@OnEditorActionListener true
+            }
+            false
         })
 
         defaultTextColor = inputText.textColors.defaultColor

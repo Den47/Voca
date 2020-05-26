@@ -35,11 +35,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
             android:maxLength="32"
             android:textAlignment="center"
             android:textColorHint="#3C3F41"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:inputType="text"
+            android:singleLine="true"
+            android:imeOptions="actionDone" />
 
         <Button
             android:id="@+id/nextButton"
