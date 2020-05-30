@@ -24,26 +24,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:maxLength="32"
-            android:textAlignment="center"
-            android:textColorHint="#3C3F41"
-            android:textSize="24sp"
+            android:hint="@string/text_source"
+            android:imeOptions="actionDone"
             android:inputType="text"
+            android:maxLength="32"
             android:singleLine="true"
-            android:imeOptions="actionDone" />
+            android:textColorHint="#BBBBBB"
+            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/translateText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:maxLength="32"
-            android:textAlignment="center"
-            android:textColorHint="#3C3F41"
-            android:textSize="24sp"
+            android:hint="@string/text_translate"
+            android:imeOptions="actionDone"
             android:inputType="text"
+            android:maxLength="32"
             android:singleLine="true"
-            android:imeOptions="actionDone" />
+            android:textColorHint="#BBBBBB"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/addButton"
