@@ -1,11 +1,11 @@
 package com.voca.testing
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
@@ -17,8 +17,7 @@ import com.voca.testing.classes.Tester
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.io.IOException
-import java.io.InputStream
-
+import java.io.InputStreamReader
 
 class MainActivity : AppCompatActivity() {
 
@@ -67,8 +66,17 @@ class MainActivity : AppCompatActivity() {
 
         defaultTextColor = inputText.textColors.defaultColor
 
+        val lines = readFile()
         val list: ArrayList<Item> = ArrayList()
-        list.add(Item("TEST", "test"))
+
+        for (line in lines) {
+            val split = line.split(',');
+            if (split.size >= 2)
+                list.add(Item(split[0], split[1]))
+        }
+
+        if (list.size == 0)
+            return
 
         tester = Tester(list)
 
@@ -77,7 +85,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        // menuInflater.inflate(R.menu.menu_main, menu)
+        menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
@@ -86,8 +94,37 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_add -> {
+                val intent = Intent(this, EditActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.action_remove -> {
+                removeFile()
+                return true
+            }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun readFile(): List<String> {
+        return try {
+            val input = openFileInput("voca-words.txt")
+            val reader = InputStreamReader(input)
+
+            reader.readLines()
+
+        } catch (ioe: IOException) {
+            ioe.printStackTrace()
+            ArrayList()
+        }
+    }
+
+    private fun removeFile() {
+        try {
+            deleteFile("voca-words.txt")
+        } catch (ioe: IOException) {
+            ioe.printStackTrace()
         }
     }
 }

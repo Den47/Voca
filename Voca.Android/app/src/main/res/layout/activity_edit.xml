@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:context=".EditActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -21,17 +19,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <EditText
             android:id="@+id/sourceText"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:ems="10"
+            android:maxLength="32"
             android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textSize="24sp" />
+            android:textColorHint="#3C3F41"
+            android:textSize="24sp"
+            android:inputType="text"
+            android:singleLine="true"
+            android:imeOptions="actionDone" />
 
         <EditText
-            android:id="@+id/inputText"
+            android:id="@+id/translateText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -44,11 +46,11 @@
             android:imeOptions="actionDone" />
 
         <Button
-            android:id="@+id/nextButton"
+            android:id="@+id/addButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:text="@string/action_next" />
+            android:text="@string/action_add" />
 
     </LinearLayout>
 
