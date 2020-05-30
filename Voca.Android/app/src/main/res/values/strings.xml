@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Voca</string>
     <string name="action_next">Next</string>
+    <string name="action_hint">Hint</string>
     <string name="action_add">Add</string>
     <string name="action_remove">Remove file</string>
     <string name="text_source">Source</string>

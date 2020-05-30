@@ -11,7 +11,9 @@ import android.view.MenuItem
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView.OnEditorActionListener
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.voca.testing.classes.Item
 import com.voca.testing.classes.Tester
 import kotlinx.android.synthetic.main.activity_main.*
@@ -30,6 +32,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        val lines = readFile()
+        val list: ArrayList<Item> = ArrayList()
+
+        for (line in lines) {
+            val split = line.split(',');
+            if (split.size >= 2)
+                list.add(Item(split[0], split[1]))
+        }
+
+        if (list.size == 0) {
+            rootContentPanel.isVisible = false
+            return
+        }
+
         nextButton.setOnClickListener {
             sourceText.text = tester.next()
 
@@ -42,6 +58,10 @@ class MainActivity : AppCompatActivity() {
                 InputMethodManager.SHOW_FORCED,
                 InputMethodManager.HIDE_IMPLICIT_ONLY
             )
+        }
+
+        hintButton.setOnClickListener {
+            Toast.makeText(this, tester.translate, Toast.LENGTH_SHORT).show()
         }
 
         inputText.addTextChangedListener(object : TextWatcher {
@@ -66,18 +86,6 @@ class MainActivity : AppCompatActivity() {
 
         defaultTextColor = inputText.textColors.defaultColor
 
-        val lines = readFile()
-        val list: ArrayList<Item> = ArrayList()
-
-        for (line in lines) {
-            val split = line.split(',');
-            if (split.size >= 2)
-                list.add(Item(split[0], split[1]))
-        }
-
-        if (list.size == 0)
-            return
-
         tester = Tester(list)
 
         sourceText.text = tester.next()
@@ -101,6 +109,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.action_remove -> {
                 removeFile()
+                rootContentPanel.isVisible = false
                 return true
             }
             else -> super.onOptionsItemSelected(item)

@@ -50,7 +50,7 @@ public class Tester {
         return currentTranslate.compareToIgnoreCase(translate) == 0;
     }
 
-    private String getSource() {
+    public String getSource() {
 
         if (_currentItem == null)
             return null;
@@ -58,7 +58,7 @@ public class Tester {
         return _currentItem.get_source();
     }
 
-    private String getTranslate() {
+    public String getTranslate() {
 
         if (_currentItem == null)
             return null;
