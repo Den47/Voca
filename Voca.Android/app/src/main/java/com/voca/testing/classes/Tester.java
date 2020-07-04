@@ -45,6 +45,23 @@ public class Tester {
         return getSource();
     }
 
+    public void removeCurrent() {
+        String currentSource = getSource();
+        String currentTranslate = getTranslate();
+
+        if (_currentTest.size() == 1)
+            _currentTest.clear();
+
+        for (int i = 0; i < _vocabulary.size(); i++) {
+            Item item = _vocabulary.get(i);
+
+            if (item.get_source() == currentSource && item.get_translate() == currentTranslate) {
+                _vocabulary.remove(item);
+                break;
+            }
+        }
+    }
+
     public Boolean check(String translate) {
 
         if (translate == null)

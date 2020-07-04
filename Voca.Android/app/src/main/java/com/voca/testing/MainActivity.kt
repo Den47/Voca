@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.io.IOException
 import java.io.InputStreamReader
+import java.io.OutputStreamWriter
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,11 +40,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         nextButton.setOnClickListener {
-            sourceText.text = tester.next()
-            inputText.text.clear()
-            inputText.setTextColor(defaultTextColor)
-            inputText.requestFocus()
-            setFocus()
+            next()
         }
 
         hintButton.setOnClickListener {
@@ -94,8 +91,8 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.action_remove -> {
-                removeFile()
-                rootContentPanel.isVisible = false
+                removeItem()
+                next()
                 return true
             }
             else -> super.onOptionsItemSelected(item)
@@ -136,6 +133,38 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun removeItem() {
+        val currentSource: String = tester.source
+        val currentTranslate: String = tester.translate
+
+        if (currentSource.isNullOrEmpty())
+            return
+        if (currentTranslate.isNullOrEmpty())
+            return
+
+        tester.removeCurrent()
+
+        try {
+            val items = loadItems()
+
+            deleteFile("voca-words.txt")
+
+            val output = openFileOutput("voca-words.txt", Context.MODE_APPEND)
+            val writer = OutputStreamWriter(output)
+
+            for (item in items) {
+                if (item._source == currentSource && item._translate == currentTranslate)
+                    continue
+                writer.appendln("${item._source},${item._translate}")
+            }
+
+            writer.close()
+
+        } catch (ioe: IOException) {
+            ioe.printStackTrace()
+        }
+    }
+
     private fun setFocus() {
         val imm: InputMethodManager =
             getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -143,5 +172,19 @@ class MainActivity : AppCompatActivity() {
             InputMethodManager.SHOW_FORCED,
             InputMethodManager.HIDE_IMPLICIT_ONLY
         )
+    }
+
+    private fun next() {
+        val next = tester.next()
+        if (next.isNullOrEmpty()) {
+            rootContentPanel.isVisible = false
+            return
+        }
+
+        sourceText.text = next
+        inputText.text.clear()
+        inputText.setTextColor(defaultTextColor)
+        inputText.requestFocus()
+        setFocus()
     }
 }
