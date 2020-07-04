@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
         tester = Tester(items)
 
-        sourceText.text = tester.next()
+        sourceText.text = tester.source
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
