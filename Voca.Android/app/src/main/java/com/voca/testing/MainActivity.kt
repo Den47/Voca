@@ -125,21 +125,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun removeFile() {
-        try {
-            deleteFile("voca-words.txt")
-        } catch (ioe: IOException) {
-            ioe.printStackTrace()
-        }
-    }
-
     private fun removeItem() {
         val currentSource: String = tester.source
         val currentTranslate: String = tester.translate
 
-        if (currentSource.isNullOrEmpty())
+        if (currentSource.isEmpty())
             return
-        if (currentTranslate.isNullOrEmpty())
+        if (currentTranslate.isEmpty())
             return
 
         tester.removeCurrent()

@@ -55,7 +55,7 @@ public class Tester {
         for (int i = 0; i < _vocabulary.size(); i++) {
             Item item = _vocabulary.get(i);
 
-            if (item.get_source() == currentSource && item.get_translate() == currentTranslate) {
+            if (item.get_source().equals(currentSource) && item.get_translate().equals(currentTranslate)) {
                 _vocabulary.remove(item);
                 break;
             }
