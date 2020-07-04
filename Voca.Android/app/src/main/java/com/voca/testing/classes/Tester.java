@@ -7,6 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Tester {
 
     private List<Item> _vocabulary;
+    private List<Item> _currentTest;
     private Item _currentItem;
 
     public Tester(List<Item> vocabulary) {
@@ -15,24 +16,31 @@ public class Tester {
             throw new IllegalArgumentException();
 
         _vocabulary = new ArrayList<>(vocabulary);
+
+        resetTest();
         next();
     }
 
     public String next() {
 
-        if (_vocabulary.size() == 1) {
-            _currentItem = _vocabulary.get(0);
+        if (_currentTest.size() == 0) {
+            resetTest();
+
+            if (_currentTest.size() == 0) {
+                return null;
+            }
+        }
+
+        if (_currentTest.size() == 1) {
+            _currentItem = _currentTest.get(0);
+            resetTest();
             return getSource();
         }
 
-        Item current;
-        do {
-            int randomIndex = ThreadLocalRandom.current().nextInt(0, _vocabulary.size());
-            current = _vocabulary.get(randomIndex);
-        }
-        while (_currentItem != null && _currentItem.get_source() == current.get_source());
+        int randomIndex = ThreadLocalRandom.current().nextInt(0, _currentTest.size());
 
-        _currentItem = current;
+        _currentItem = _currentTest.get(randomIndex);
+        _currentTest.remove(_currentItem);
 
         return getSource();
     }
@@ -64,5 +72,9 @@ public class Tester {
             return null;
 
         return _currentItem.get_translate();
+    }
+
+    private void resetTest() {
+        _currentTest = new ArrayList<>(_vocabulary);
     }
 }
