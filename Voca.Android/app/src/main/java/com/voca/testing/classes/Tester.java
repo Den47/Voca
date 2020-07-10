@@ -91,6 +91,10 @@ public class Tester {
         return _currentItem.get_translate();
     }
 
+    public Boolean hasItems() {
+        return _currentItem != null;
+    }
+
     private void resetTest() {
         _currentTest = new ArrayList<>(_vocabulary);
     }

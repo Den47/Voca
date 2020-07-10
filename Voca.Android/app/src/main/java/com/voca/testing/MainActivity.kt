@@ -91,8 +91,10 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.action_remove -> {
-                removeItem()
-                next()
+                if (rootContentPanel.isVisible) {
+                    removeItem()
+                    next()
+                }
                 return true
             }
             else -> super.onOptionsItemSelected(item)
